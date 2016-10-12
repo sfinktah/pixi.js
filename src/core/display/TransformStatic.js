@@ -16,37 +16,37 @@ function TransformStatic()
      *
      * @member {PIXI.ObservablePoint}
      */
-    this.position = new math.ObservablePoint(this.onChange, this,0,0);
+    this.position = new math.ObservablePoint(this.onChange, this, 0, 0);
 
     /**
      * The scale factor of the object.
      *
      * @member {PIXI.ObservablePoint}
      */
-    this.scale = new math.ObservablePoint(this.onChange, this,1,1);
+    this.scale = new math.ObservablePoint(this.onChange, this, 1, 1);
 
     /**
      * The pivot point of the displayObject that it rotates around
      *
      * @member {PIXI.ObservablePoint}
      */
-    this.pivot = new math.ObservablePoint(this.onChange, this,0, 0);
+    this.pivot = new math.ObservablePoint(this.onChange, this, 0, 0);
 
     /**
      * The skew amount, on the x and y axis.
      *
      * @member {PIXI.ObservablePoint}
      */
-    this.skew = new math.ObservablePoint(this.updateSkew, this,0, 0);
+    this.skew = new math.ObservablePoint(this.updateSkew, this, 0, 0);
 
     this._rotation = 0;
 
     this._sr = Math.sin(0);
     this._cr = Math.cos(0);
-    this._cy  = Math.cos(0);//skewY);
-    this._sy  = Math.sin(0);//skewY);
-    this._nsx = Math.sin(0);//skewX);
-    this._cx  = Math.cos(0);//skewX);
+    this._cy  = Math.cos(0); // skewY);
+    this._sy  = Math.sin(0); // skewY);
+    this._nsx = Math.sin(0); // skewX);
+    this._cx  = Math.cos(0); // skewX);
 
     this._localID = 0;
     this._currentLocalID = 0;
@@ -78,7 +78,7 @@ TransformStatic.prototype.updateLocalTransform = function() {
     if(this._localID !== this._currentLocalID)
     {
         // get the matrix values of the displayobject based on its transform properties..
-        var a,b,c,d;
+        var a, b, c, d;
 
         a  =  this._cr * this.scale._x;
         b  =  this._sr * this.scale._x;
@@ -113,7 +113,7 @@ TransformStatic.prototype.updateTransform = function (parentTransform)
     if(this._localID !== this._currentLocalID)
     {
         // get the matrix values of the displayobject based on its transform properties..
-        var a,b,c,d;
+        var a, b, c, d;
 
         a  =  this._cr * this.scale._x;
         b  =  this._sr * this.scale._x;

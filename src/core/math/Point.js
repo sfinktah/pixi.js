@@ -4,8 +4,8 @@
  *
  * @class
  * @memberof PIXI
- * @param [x=0] {number} position of the point on the x axis
- * @param [y=0] {number} position of the point on the y axis
+ * @param {number} [x=0] position of the point on the x axis
+ * @param {number} [y=0] position of the point on the y axis
  */
 function Point(x, y)
 {
@@ -38,7 +38,7 @@ Point.prototype.clone = function ()
 /**
  * Copies x and y from the given point
  *
- * @param p {PIXI.Point}
+ * @param {PIXI.Point} p
  */
 Point.prototype.copy = function (p) {
     this.set(p.x, p.y);
@@ -47,7 +47,7 @@ Point.prototype.copy = function (p) {
 /**
  * Returns true if the given point is equal to this point
  *
- * @param p {PIXI.Point}
+ * @param {PIXI.Point} p
  * @returns {boolean} Whether the given point equal to this point
  */
 Point.prototype.equals = function (p) {
@@ -58,8 +58,8 @@ Point.prototype.equals = function (p) {
  * Sets the point to a new x and y position.
  * If y is omitted, both x and y will be set to x.
  *
- * @param [x=0] {number} position of the point on the x axis
- * @param [y=0] {number} position of the point on the y axis
+ * @param {number} [x=0] position of the point on the x axis
+ * @param {number} [y=0] position of the point on the y axis
  */
 Point.prototype.set = function (x, y)
 {

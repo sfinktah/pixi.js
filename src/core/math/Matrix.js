@@ -68,7 +68,7 @@ module.exports = Matrix;
  * tx = array[2]
  * ty = array[5]
  *
- * @param array {number[]} The array that the matrix will be populated from.
+ * @param {number[]} array The array that the matrix will be populated from.
  */
 Matrix.prototype.fromArray = function (array)
 {
@@ -109,8 +109,8 @@ Matrix.prototype.set = function (a, b, c, d, tx, ty)
 /**
  * Creates an array from the current Matrix object.
  *
- * @param transpose {boolean} Whether we need to transpose the matrix or not
- * @param [out=new Float32Array(9)] {Float32Array} If provided the array will be assigned to out
+ * @param {boolean} transpose Whether we need to transpose the matrix or not
+ * @param {Float32Array} [out=new Float32Array(9)] If provided the array will be assigned to out
  * @return {number[]} the newly created array which contains the matrix
  */
 Matrix.prototype.toArray = function (transpose, out)
@@ -154,8 +154,8 @@ Matrix.prototype.toArray = function (transpose, out)
  * Get a new position with the current transformation applied.
  * Can be used to go from a child's coordinate space to the world coordinate space. (e.g. rendering)
  *
- * @param pos {PIXI.Point} The origin
- * @param [newPos] {PIXI.Point} The point that the new position is assigned to (allowed to be same as input)
+ * @param {PIXI.Point} pos The origin
+ * @param {PIXI.Point} [newPos] The point that the new position is assigned to (allowed to be same as input)
  * @return {PIXI.Point} The new point, transformed through this matrix
  */
 Matrix.prototype.apply = function (pos, newPos)
@@ -175,8 +175,8 @@ Matrix.prototype.apply = function (pos, newPos)
  * Get a new position with the inverse of the current transformation applied.
  * Can be used to go from the world coordinate space to a child's coordinate space. (e.g. input)
  *
- * @param pos {PIXI.Point} The origin
- * @param [newPos] {PIXI.Point} The point that the new position is assigned to (allowed to be same as input)
+ * @param {PIXI.Point} pos The origin
+ * @param {PIXI.Point} [newPos] The point that the new position is assigned to (allowed to be same as input)
  * @return {PIXI.Point} The new point, inverse-transformed through this matrix
  */
 Matrix.prototype.applyInverse = function (pos, newPos)
@@ -188,7 +188,7 @@ Matrix.prototype.applyInverse = function (pos, newPos)
     var x = pos.x;
     var y = pos.y;
 
-    newPos.x = this.d * id * x + -this.c * id * y + (this.ty * this.c - this.tx * this.d) * id;
+    newPos.x = this.d * id * x + -this.c * id * y + (this.ty  * this.c - this.tx * this.d) * id;
     newPos.y = this.a * id * y + -this.b * id * x + (-this.ty * this.a + this.tx * this.b) * id;
 
     return newPos;
@@ -218,10 +218,10 @@ Matrix.prototype.translate = function (x, y)
  */
 Matrix.prototype.scale = function (x, y)
 {
-    this.a *= x;
-    this.d *= y;
-    this.c *= x;
-    this.b *= y;
+    this.a  *= x;
+    this.d  *= y;
+    this.c  *= x;
+    this.b  *= y;
     this.tx *= x;
     this.ty *= y;
 
@@ -244,10 +244,10 @@ Matrix.prototype.rotate = function (angle)
     var c1 = this.c;
     var tx1 = this.tx;
 
-    this.a = a1 * cos-this.b * sin;
-    this.b = a1 * sin+this.b * cos;
-    this.c = c1 * cos-this.d * sin;
-    this.d = c1 * sin+this.d * cos;
+    this.a  = a1  * cos - this.b  * sin;
+    this.b  = a1  * sin + this.b  * cos;
+    this.c  = c1  * cos - this.d  * sin;
+    this.d  = c1  * sin + this.d  * cos;
     this.tx = tx1 * cos - this.ty * sin;
     this.ty = tx1 * sin + this.ty * cos;
 
@@ -309,10 +309,10 @@ Matrix.prototype.setTransform = function (x, y, pivotX, pivotY, scaleX, scaleY, 
     c  = -sr * scaleY;
     d  =  cr * scaleY;
 
-    this.a  = cy * a + sy * c;
-    this.b  = cy * b + sy * d;
-    this.c  = nsx * a + cx * c;
-    this.d  = nsx * b + cx * d;
+    this.a = cy  * a + sy * c;
+    this.b = cy  * b + sy * d;
+    this.c = nsx * a + cx * c;
+    this.d = nsx * b + cx * d;
 
     this.tx = x + ( pivotX * a + pivotY * c );
     this.ty = y + ( pivotX * b + pivotY * d );
@@ -334,21 +334,21 @@ Matrix.prototype.prepend = function(matrix)
     {
         var a1 = this.a;
         var c1 = this.c;
-        this.a  = a1*matrix.a+this.b*matrix.c;
-        this.b  = a1*matrix.b+this.b*matrix.d;
-        this.c  = c1*matrix.a+this.d*matrix.c;
-        this.d  = c1*matrix.b+this.d*matrix.d;
+        this.a  = a1 * matrix.a + this.b * matrix.c;
+        this.b  = a1 * matrix.b + this.b * matrix.d;
+        this.c  = c1 * matrix.a + this.d * matrix.c;
+        this.d  = c1 * matrix.b + this.d * matrix.d;
     }
 
-    this.tx = tx1*matrix.a+this.ty*matrix.c+matrix.tx;
-    this.ty = tx1*matrix.b+this.ty*matrix.d+matrix.ty;
+    this.tx = tx1 * matrix.a + this.ty * matrix.c + matrix.tx;
+    this.ty = tx1 * matrix.b + this.ty * matrix.d + matrix.ty;
 
     return this;
 };
 
 /**
  * Decomposes the matrix (x, y, scaleX, scaleY, and rotation) and sets the properties on to a transform.
- * @param transform {PIXI.Transform|PIXI.TransformStatic} the transform to apply the properties to.
+ * @param {PIXI.Transform|PIXI.TransformStatic} transform the transform to apply the properties to.
  * @return {PIXI.Transform|PIXI.TransformStatic} The transform with the newly applied properies
 */
 Matrix.prototype.decompose = function(transform)
@@ -362,7 +362,7 @@ Matrix.prototype.decompose = function(transform)
     var skewX = Math.atan2(-c, d);
     var skewY = Math.atan2(b, a);
 
-    var delta = Math.abs(1-skewX/skewY);
+    var delta = Math.abs(1 - skewX / skewY);
 
     if (delta < 0.00001)
     {
@@ -406,14 +406,14 @@ Matrix.prototype.invert = function()
     var c1 = this.c;
     var d1 = this.d;
     var tx1 = this.tx;
-    var n = a1*d1-b1*c1;
+    var n = a1 * d1 - b1 * c1;
 
-    this.a = d1/n;
-    this.b = -b1/n;
-    this.c = -c1/n;
-    this.d = a1/n;
-    this.tx = (c1*this.ty-d1*tx1)/n;
-    this.ty = -(a1*this.ty-b1*tx1)/n;
+    this.a = d1 / n;
+    this.b = -b1 / n;
+    this.c = -c1 / n;
+    this.d = a1 / n;
+    this.tx = (c1  * this.ty - d1 * tx1) / n;
+    this.ty = -(a1 * this.ty - b1 * tx1) / n;
 
     return this;
 };
@@ -444,10 +444,10 @@ Matrix.prototype.identity = function ()
 Matrix.prototype.clone = function ()
 {
     var matrix = new Matrix();
-    matrix.a = this.a;
-    matrix.b = this.b;
-    matrix.c = this.c;
-    matrix.d = this.d;
+    matrix.a  = this.a;
+    matrix.b  = this.b;
+    matrix.c  = this.c;
+    matrix.d  = this.d;
     matrix.tx = this.tx;
     matrix.ty = this.ty;
 
@@ -461,10 +461,10 @@ Matrix.prototype.clone = function ()
  */
 Matrix.prototype.copy = function (matrix)
 {
-    matrix.a = this.a;
-    matrix.b = this.b;
-    matrix.c = this.c;
-    matrix.d = this.d;
+    matrix.a  = this.a;
+    matrix.b  = this.b;
+    matrix.c  = this.c;
+    matrix.d  = this.d;
     matrix.tx = this.tx;
     matrix.ty = this.ty;
 
